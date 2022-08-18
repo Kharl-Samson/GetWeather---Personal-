@@ -17,9 +17,172 @@ body{
 
 .main_container{
     height: 100vh;
-    width: 100%;
-    background-image: url(../Assets/sunny_bg.gif);
+    width: 100%; 
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
+}
+
+/* Presets */
+.sunny_container{
+    background-image: url(../Assets/sunny_bg.gif);
+}
+.rainy_container{
+    background-image: url(../Assets/rainy_bg.gif);
+    background-position: center top;
+}
+
+.sunny_color{
+    color: #ec933f;
+}
+.rainy_color{
+    color: #4F916B;
+}
+.sunny_color_bg{
+    background-color: #F38B2B;
+}
+.rainy_color_bg{
+    background-color: #4F916B;
+}
+
+.main_container .main_container_dark_effect{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.432);
+}
+.main_container .main_container_dark_effect .left{
+    width: auto;
+    height: 100%;
+    flex-grow: 1;
+}
+.main_container .main_container_dark_effect .right{
+    width: 500px;
+    height: 100%;
+    background-color: #ffff;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main_container .main_container_dark_effect .right .box{
+    height: auto;
+    width: 85%;
+    margin: 0 auto;
+}
+.main_container .main_container_dark_effect .right .one{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    border-bottom: 1.8px solid #D9D9D9;
+    padding-bottom: 20px;
+}
+.main_container .main_container_dark_effect .right .one .left_box p:nth-child(1){
+    font-size: 1.1rem;
+    white-space: nowrap;
+    color: #898989;
+}
+.main_container .main_container_dark_effect .right .one .left_box p:nth-child(2){
+    font-size: 1.3rem;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.main_container .main_container_dark_effect .right .one .right_box img{
+    height: 60px;
+    width: auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 15px;
+}
+
+.main_container .main_container_dark_effect .right .two{
+    margin-top: 40px;
+    border-bottom: 1.8px solid #D9D9D9;
+    padding-bottom: 20px;
+}
+.main_container .main_container_dark_effect .right .two .title{
+    font-size: 1.3rem;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.main_container .main_container_dark_effect .right .two .content{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main_container .main_container_dark_effect .right .two .content .left_content p{
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #898989;
+}
+.main_container .main_container_dark_effect .right .two .content .right_content p{
+    font-size: 1rem;
+    margin: 10px 0;
+    color: black;
+    font-weight: 700;
+}
+
+.main_container .main_container_dark_effect .right .three{
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+.main_container .main_container_dark_effect .right .three .title{
+    font-size: 1.3rem;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.main_container .main_container_dark_effect .right .three .graph_container{
+    margin-top: 20px;
+}
+
+.main_container .main_container_dark_effect .right .four{
+    height: auto;
+    width: 100%;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main_container .main_container_dark_effect .right .four p{
+    color: #ffff;
+    text-align: center;
+    width: 85%;
+}
+.main_container .main_container_dark_effect .right .four p:nth-child(1){
+    font-size: 1rem;
+}
+.main_container .main_container_dark_effect .right .four p:nth-child(2){
+    font-size: .9rem;
+    margin-top: 10px;
+    color: rgb(226, 224, 224);
+}
+
+
+
+/*RESPONSIVE*/
+@media screen and (max-width: 1201px) {
+    .main_container .main_container_dark_effect .right{
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 1001px) {
+    .main_container .main_container_dark_effect{
+        flex-direction: column;
+    }
+    .main_container .main_container_dark_effect .left{
+        width: 100%;
+        height: auto;
+    }
+    .main_container .main_container_dark_effect .right{
+        width: 100%;
+        height: auto;
+    }
+    
 }
