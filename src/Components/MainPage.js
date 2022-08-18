@@ -1,9 +1,10 @@
 import React from "react";  
+import "../Styles/styles.css";
 
 export default function MainPage(){
-    return(
-        <div>
-            Main Page
-        </div>
-    )
+return(
+<div className="main_container">
+    
+</div>
+)
 }
