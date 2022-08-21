@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import "../Styles/styles.css";
 import sunny_icon from "../Assets/sunny_icon.svg";
 import search_icon from "../Assets/search_icon.svg";
@@ -41,6 +42,30 @@ const [weatherData, setweatherData] = useState({
   ],
 });
 
+const [data, setData] = useState({})
+const [location, setLocation] = useState('')
+
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
+
+function trigger_Axios(){
+    axios.get(url).then((response) => {
+        setData(response.data)
+    })
+    setLocation('')
+}
+
+const searchLocation = (event) => {
+  if (event.key === 'Enter') {
+    trigger_Axios();
+  }
+}
+
+function search_btn(){
+    trigger_Axios();
+}
+
+
+
 return(
 <div className="main_container rainy_container">
     <div className="main_container_dark_effect">
@@ -50,19 +75,25 @@ return(
                 <p>GetWeather</p>
                 <div className='input_container'>
                     <div className='img_container'><img alt='' src={search_icon}/></div>
-                    <input type="text"/>
-                    <div className='img_container'><span>Go</span></div>
+                    <input type="text"
+                     value={location}
+                     onChange={event => setLocation(event.target.value)}
+                     onKeyPress={searchLocation}
+                    />
+                    <div className='img_container'><span onClick={search_btn}>Go</span></div>
                 </div>
             </div>
 
             <div className='bottom'>
                 <div className='upper'>
                     <div className='left_upper'>
-                        <p>32°C</p>
+                        {data.main ? <p>{data.main.temp.toFixed()}°C</p> : <p>0°C</p> }
+                        
                     </div>
                     <div className='right_upper'>
                         <img alt='' src={sample_icon}/>
-                        <p className='desc'>Today is rainy day</p>
+                        {data.main ? <p className='desc'>{data.weather[0].description}</p> : <p className='desc'>Please search a place</p> }
+                        
                         <p className='tips'>Don’t forget an umbrella</p>
                     </div>
                 </div>
