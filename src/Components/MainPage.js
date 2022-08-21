@@ -3,7 +3,7 @@ import axios from "axios";
 import "../Styles/styles.css";
 import sunny_icon from "../Assets/sunny_icon.svg";
 import search_icon from "../Assets/search_icon.svg";
-
+import moment from "moment";
 import sample_icon from "../Assets/sample_icon.png";
 
 //Chart Js
@@ -51,7 +51,7 @@ function trigger_Axios(){
     axios.get(url).then((response) => {
         setData(response.data)
     })
-    setLocation('')
+    //setLocation('')
 }
 
 const searchLocation = (event) => {
@@ -67,7 +67,23 @@ function search_btn(){
 
 
 return(
-<div className="main_container rainy_container">
+<div 
+    className=
+    {( data.main ? 
+        data.weather[0].main.toLowerCase() == "thunderstorm" || 
+        data.weather[0].main.toLowerCase() == "drizzle" || 
+        data.weather[0].main.toLowerCase() == "rain" ||                 
+        data.weather[0].main.toLowerCase() == "snow" ?
+             "main_container rainy_container"
+        : 
+        data.weather[0].main.toLowerCase() == "tornado" ?
+            "main_container rainy_container"
+            :
+            "main_container sunny_container"
+    : 
+    "main_container sunny_container"  )}
+>
+    
     <div className="main_container_dark_effect">
         <div className="left">
 
@@ -92,15 +108,29 @@ return(
                     </div>
                     <div className='right_upper'>
                         <img alt='' src={sample_icon}/>
-                        {data.main ? <p className='desc'>{data.weather[0].description}</p> : <p className='desc'>Please search a place</p> }
+                        {data.main ? <p className='desc'>{data.weather[0].main}</p> : <p className='desc'>Please search a place</p> }
                         
-                        <p className='tips'>Don’t forget an umbrella</p>
+                        {
+                            data.main ? 
+                                data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                                data.weather[0].main.toLowerCase() == "drizzle" || 
+                                data.weather[0].main.toLowerCase() == "rain" || 
+                                data.weather[0].main.toLowerCase() == "snow" ?
+                                    <p className='tips'>Don’t forget an umbrella</p> 
+                                    : 
+                                    data.weather[0].main.toLowerCase() == "tornado" ?
+                                        <p className='tips'>Keep safe and stay at home.</p> 
+                                        :
+                                        <p className='tips'>It's a nice day to be productive.</p>
+                            : 
+                            <p className='tips'>Have a nice day.</p>  
+                        }
                     </div>
                 </div>
 
                 <div className='lower'>
                     <div className='time_date'>
-                        <p>2:22 PM - Monday, August 20, 2022</p>
+                        <p>{moment().format('LLLL')}</p>
                     </div>
 
                     <div className='location'>
@@ -118,7 +148,24 @@ return(
                 <div className="box one">
                     <div className="left_box">
                         <p>Current Location</p>
-                        <p className="rainy_color">Manila, <span>PH</span></p>
+                        <p 
+                          className=
+                          {( data.main ? 
+                              data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                              data.weather[0].main.toLowerCase() == "drizzle" || 
+                              data.weather[0].main.toLowerCase() == "rain" ||                 
+                              data.weather[0].main.toLowerCase() == "snow" ?
+                                   "rainy_color"
+                              : 
+                              data.weather[0].main.toLowerCase() == "tornado" ?
+                                  "rainy_color"
+                                  :
+                                  "sunny_color"
+                          : 
+                          "sunny_color"  )}
+                        >
+                            Manila, <span>PH</span>
+                        </p>
                     </div>
                     <div className="right_box">
                         <img alt="" src={sunny_icon}/>
@@ -126,7 +173,24 @@ return(
                 </div>
     
                 <div className="box two">
-                    <p className="title rainy_color">Weather Details</p>
+                    <p 
+                      className=
+                      {( data.main ? 
+                          data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                          data.weather[0].main.toLowerCase() == "drizzle" || 
+                          data.weather[0].main.toLowerCase() == "rain" ||                 
+                          data.weather[0].main.toLowerCase() == "snow" ?
+                               "title rainy_color"
+                          : 
+                          data.weather[0].main.toLowerCase() == "tornado" ?
+                              "title rainy_color"
+                              :
+                              "title sunny_color"
+                      : 
+                      "title sunny_color"  )}
+                    >
+                        Weather Details
+                    </p>
                     <div className="content">
                         <div className="left_content">
                             <p>Temperature</p>
@@ -144,7 +208,22 @@ return(
                 </div>
     
                 <div className="box three">
-                    <p className="title rainy_color">Graph Report</p>
+                    <p
+                      className=
+                      {( data.main ? 
+                          data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                          data.weather[0].main.toLowerCase() == "drizzle" || 
+                          data.weather[0].main.toLowerCase() == "rain" ||                 
+                          data.weather[0].main.toLowerCase() == "snow" ?
+                               "title rainy_color"
+                          : 
+                          data.weather[0].main.toLowerCase() == "tornado" ?
+                              "title rainy_color"
+                              :
+                              "title sunny_color"
+                      : 
+                      "title sunny_color"  )}
+                    >Graph Report</p>
     
                     <div className="graph_container">
                         <Line data={weatherData} height={170}/>
@@ -153,7 +232,22 @@ return(
                 </div>
             </div>
 
-            <div className="four rainy_color_bg">
+            <div
+                className=
+                {( data.main ? 
+                    data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                    data.weather[0].main.toLowerCase() == "drizzle" || 
+                    data.weather[0].main.toLowerCase() == "rain" ||                 
+                    data.weather[0].main.toLowerCase() == "snow" ?
+                         "four rainy_color_bg"
+                    : 
+                    data.weather[0].main.toLowerCase() == "tornado" ?
+                        "four rainy_color_bg"
+                        :
+                        "four sunny_color_bg"
+                : 
+                "four sunny_color_bg"  )}
+            >
                 <p>Kharl Samson © 2022</p>
                 <p>This site was developed by Kharl Samson. It cannot and should not be reproduced in any forms or by any means without the consent from him.</p>
             </div>
