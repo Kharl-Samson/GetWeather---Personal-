@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import "../Styles/styles.css";
 import sunny_icon from "../Assets/sunny_icon.svg";
+import rainy_icon from "../Assets/rainy_icon.svg";
+
 import search_icon from "../Assets/search_icon.svg";
 import moment from "moment";
 import sample_icon from "../Assets/sample_icon.png";
@@ -27,20 +29,33 @@ const weatherData_array = [
      infoTitle: "Humidity",
     },
 ]
-const myArray = ["83.12","84.2","1008","77"];
+const myArray = ['0','0','0','0'];
 
-const [weatherData, setweatherData] = useState({
-  labels: weatherData_array.map((res) => res.infoTitle),
-  datasets: [
-    {
-      label: "Weather Description",
-      data: myArray,
-      backgroundColor: [
-        "#199afb","#fec860","#1be5a1","#df7970"
-      ],
-    },
-  ],
-});
+const [weatherData,setweatherData] = useState({
+    labels: weatherData_array.map((res) => res.infoTitle),
+    datasets:[{
+        label: "Weather Description",
+        backgroundColor: [
+            "#199afb","#fec860","#1be5a1","#df7970"
+        ],
+        data:myArray
+    }]
+})
+
+function weatherData_setter(array_key){
+    setweatherData({
+        labels: weatherData_array.map((res) => res.infoTitle),
+        datasets:[{
+            label: "Weather Description",
+            backgroundColor: [
+                "#199afb","#fec860","#1be5a1","#df7970"
+            ],
+            data:array_key
+        }]
+    })
+
+}
+
 
 const [data, setData] = useState({})
 const [location, setLocation] = useState('')
@@ -48,10 +63,27 @@ const [location, setLocation] = useState('')
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
 
 function trigger_Axios(){
+    
+    //To put graph value to none
+    weatherData_setter(myArray)
+
     axios.get(url).then((response) => {
         setData(response.data)
+
+        //Update the value of graph
+        const new_Array = [
+            response.data.main.temp_min,
+            response.data.main.temp_max,
+            response.data.main.pressure,
+            response.data.main.humidity
+        ];
+        weatherData_setter(new_Array)
+
+        let city = document.getElementById("input_key").value;
+        for(var i = 0 ; i < document.getElementsByClassName("city_name").length ; i++){
+            document.getElementsByClassName("city_name")[i].textContent = city;
+        }
     })
-    //setLocation('')
 }
 
 const searchLocation = (event) => {
@@ -63,6 +95,7 @@ const searchLocation = (event) => {
 function search_btn(){
     trigger_Axios();
 }
+
 
 
 
@@ -93,6 +126,7 @@ return(
                     <div className='img_container'><img alt='' src={search_icon}/></div>
                     <input type="text"
                      value={location}
+                     id="input_key"
                      onChange={event => setLocation(event.target.value)}
                      onKeyPress={searchLocation}
                     />
@@ -106,9 +140,9 @@ return(
                         {data.main ? <p>{data.main.temp.toFixed()}°C</p> : <p>0°C</p> }
                         
                     </div>
-                    <div className='right_upper'>
-                        <img alt='' src={sample_icon}/>
-                        {data.main ? <p className='desc'>{data.weather[0].main}</p> : <p className='desc'>Please search a place</p> }
+                    <div className='right_upper'>      
+                        {data.main ? <img alt='' src={"https://openweathermap.org/img/wn/" + data.weather[0].icon + "@4x.png"}/> : <img alt='' src={sample_icon}/> }
+                        {data.main ? <p className='desc'>{data.weather[0].description}</p> : <p className='desc'>Please search a place</p> }
                         
                         {
                             data.main ? 
@@ -134,7 +168,7 @@ return(
                     </div>
 
                     <div className='location'>
-                        <p>Manila, Ph</p>
+                        <p className='Name_of_City'><span className="city_name">Philippines</span>, {data.main ? data.sys.country : "PH"}</p>
                         <div className='btn'><span>Change</span></div>
                     </div>
                 </div>
@@ -155,20 +189,31 @@ return(
                               data.weather[0].main.toLowerCase() == "drizzle" || 
                               data.weather[0].main.toLowerCase() == "rain" ||                 
                               data.weather[0].main.toLowerCase() == "snow" ?
-                                   "rainy_color"
+                                   "Name_of_City rainy_color"
                               : 
                               data.weather[0].main.toLowerCase() == "tornado" ?
-                                  "rainy_color"
+                                  "Name_of_City rainy_color"
                                   :
-                                  "sunny_color"
+                                  "Name_of_City sunny_color"
                           : 
-                          "sunny_color"  )}
+                          "Name_of_City sunny_color"  )}
                         >
-                            Manila, <span>PH</span>
+                            <span className='city_name'>Philippines</span>, <span>{data.main ? data.sys.country : "PH"}</span>
                         </p>
                     </div>
                     <div className="right_box">
-                        <img alt="" src={sunny_icon}/>
+                        <img alt="" src= {( data.main ? 
+                              data.weather[0].main.toLowerCase() == "thunderstorm" || 
+                              data.weather[0].main.toLowerCase() == "drizzle" || 
+                              data.weather[0].main.toLowerCase() == "rain" ||                 
+                              data.weather[0].main.toLowerCase() == "snow" ?
+                                rainy_icon 
+                                : 
+                                sunny_icon
+                          : 
+                          sunny_icon )}/>
+
+                      
                     </div>
                 </div>
     
@@ -199,10 +244,10 @@ return(
                             <p>Wind Degree</p>
                         </div>
                         <div className="right_content">
-                            <p>32°C</p>
-                            <p>Broken Clouds</p>
-                            <p>8.05 MPH</p>
-                            <p>280°</p>
+                            <p>{data.main ? data.main.temp.toFixed() : "0"}°C</p>
+                            <p>{data.main ? data.weather[0].description : "It's a nice day"}</p>
+                            <p>{data.main ? data.wind.speed : "0"} MPH</p>
+                            <p>{data.main ? data.wind.deg : "0"}°</p>
                         </div>
                     </div>
                 </div>

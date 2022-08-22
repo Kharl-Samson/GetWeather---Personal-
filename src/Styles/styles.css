@@ -265,6 +265,7 @@ body::-webkit-scrollbar-thumb:window-inactive {
 .main_container .main_container_dark_effect .right .two .content .right_content p{
     font-size: 1rem;
     margin: 10px 0;
+    text-transform: uppercase;
     color: black;
     font-weight: 700;
 }
@@ -306,7 +307,9 @@ body::-webkit-scrollbar-thumb:window-inactive {
     color: rgb(226, 224, 224);
 }
 
-
+.Name_of_City{
+    text-transform: capitalize;
+}
 
 /*RESPONSIVE*/
 @media screen and (max-width: 1201px) {
