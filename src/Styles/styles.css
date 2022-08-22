@@ -380,6 +380,7 @@ body::-webkit-scrollbar-thumb:window-inactive {
     }
     .main_container .main_container_dark_effect .left .top .input_container{
         width: 80%;
+        height: 45px;
         justify-content: space-between;
     }
     .main_container .main_container_dark_effect .left .top .input_container .img_container{

@@ -23,7 +23,7 @@ const weatherData_array = [
      infoTitle: "Max Temp.",
     },
     {
-     infoTitle: "Pressure",
+     infoTitle: "Feels Like",
     },
     {
      infoTitle: "Humidity",
@@ -65,7 +65,7 @@ const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units
 function trigger_Axios(){
     
     //To put graph value to none
-    weatherData_setter(myArray)
+    //weatherData_setter(myArray)
 
     axios.get(url).then((response) => {
         setData(response.data)
@@ -74,7 +74,7 @@ function trigger_Axios(){
         const new_Array = [
             response.data.main.temp_min,
             response.data.main.temp_max,
-            response.data.main.pressure,
+            response.data.main.feels_like,
             response.data.main.humidity
         ];
         weatherData_setter(new_Array)
