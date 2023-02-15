@@ -60,7 +60,7 @@ function weatherData_setter(array_key){
 const [data, setData] = useState({})
 const [location, setLocation] = useState('')
 
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=5d0475a26714ff14be263b058ab0a0b1`;
 
 function trigger_Axios(){
     axios.get(url).then((response) => {
@@ -96,7 +96,7 @@ function search_btn(){
 
 // Set default weather
 function trigger_Axios_default(){
-    const url_default = `https://api.openweathermap.org/data/2.5/weather?q=Calumpit&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
+    const url_default = `https://api.openweathermap.org/data/2.5/weather?q=Calumpit&units=metric&appid=5d0475a26714ff14be263b058ab0a0b1`;
     axios.get(url_default).then((response) => {
         setData(response.data)
         //Update the value of graph
