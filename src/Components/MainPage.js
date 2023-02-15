@@ -63,10 +63,6 @@ const [location, setLocation] = useState('')
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
 
 function trigger_Axios(){
-    
-    //To put graph value to none
-    //weatherData_setter(myArray)
-
     axios.get(url).then((response) => {
         setData(response.data)
 
@@ -97,6 +93,31 @@ function search_btn(){
 }
 
 
+
+// Set default weather
+function trigger_Axios_default(){
+    const url_default = `https://api.openweathermap.org/data/2.5/weather?q=Calumpit&units=metric&appid=dadee94a86d93919d257e4735ca6aa92`;
+    axios.get(url_default).then((response) => {
+        setData(response.data)
+        //Update the value of graph
+        const new_Array = [
+            response.data.main.temp_min,
+            response.data.main.temp_max,
+            response.data.main.feels_like,
+            response.data.main.humidity
+        ];
+        weatherData_setter(new_Array)
+
+        let city = "Philippines";
+        for(var i = 0 ; i < document.getElementsByClassName("city_name").length ; i++){
+            document.getElementsByClassName("city_name")[i].textContent = city;
+        }
+    })
+}
+
+if(location === ""){
+    trigger_Axios_default();
+}
 
 
 return(
@@ -293,7 +314,7 @@ return(
                 : 
                 "four sunny_color_bg"  )}
             >
-                <p>Kharl Samson © 2022</p>
+                <p>Kharl Samson © {(new Date().getFullYear())}</p>
                 <p>This site was developed by Kharl Samson. It cannot and should not be reproduced in any forms or by any means without the consent from him.</p>
             </div>
 
